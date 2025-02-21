@@ -45,7 +45,7 @@ async function bootstrap() {
   apiDoc(app);
 
   await app.startAllMicroservices();
-  await app.listen(configService.get('RPC_PORT', 8000));
+  await app.listen(configService.get('REST_PORT', 8000));
 
   logger.verbose(`🚀 Rest API is running on: ${await app.getUrl()}`);
   logger.verbose(
