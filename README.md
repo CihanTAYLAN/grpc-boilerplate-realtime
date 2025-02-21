@@ -14,12 +14,12 @@
 
 A production-ready NestJS boilerplate featuring gRPC integration, real-time capabilities, comprehensive authentication, and extensive documentation. Built with modern TypeScript practices and following industry standards.
 
-[Features](#features) •
-[Technologies](#technologies) •
-[Getting Started](#getting-started) •
-[Documentation](#documentation) •
-[Contributing](#contributing) •
-[Support](#support)
+[Features](#-features) •
+[Technologies](#-technologies) •
+[Getting Started](#-getting-started) •
+[Documentation](#-documentation) •
+[Contributing](#-contributing) •
+[Support](#-support--community)
 
 </div>
 
