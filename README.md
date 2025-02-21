@@ -165,6 +165,23 @@ yarn start:dev
 - gRPC Documentation: `http://localhost:8001/grpc-doc`
 - Protocol Buffer Definitions: `src/protos/` directory
 
+<details>
+<summary>📸 Documentation Screenshots</summary>
+
+#### REST API Documentation
+
+<div align="center">
+  <img src="doc-images/rest-doc.png" alt="REST API Documentation" width="100%" />
+</div>
+
+#### gRPC Documentation
+
+<div align="center">
+  <img src="doc-images/grpc-doc.png" alt="gRPC Documentation" width="100%" />
+</div>
+
+</details>
+
 ### Project Structure
 
 ```
