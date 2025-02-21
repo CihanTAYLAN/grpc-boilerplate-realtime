@@ -1,0 +1,397 @@
+syntax = "proto3";
+
+package grpcBoilerplate.auth;
+
+import "common/common.proto";
+
+/**
+ * Auth Service
+ * This service is used to manage authentication operations
+ */
+service AuthService {
+  /**
+   * Register Ghost
+   * This method is used to start registration process
+   * @param RegisterGhostRequest - Initial registration request schema
+   * @returns RegisterGhostResponse - Registration token for verification
+   */
+  rpc RegisterGhost (RegisterGhostRequest) returns (RegisterGhostResponse) {}
+
+  /**
+   * Register
+   * This method is used to complete registration process
+   * @param RegisterRequest - Registration verification request schema
+   * @returns RegisterResponse - Access and refresh tokens
+   */
+  rpc Register (RegisterRequest) returns (RegisterResponse) {}
+
+  /**
+   * Login
+   * This method is used to authenticate users
+   * @param LoginRequest - Login credentials
+   * @returns LoginResponse - Access and refresh tokens
+   */
+  rpc Login (LoginRequest) returns (LoginResponse) {}
+
+  /**
+   * Refresh Token
+   * This method is used to get new access token using refresh token
+   * @param RefreshTokenRequest - Refresh token
+   * @returns RefreshTokenResponse - New access and refresh tokens
+   */
+  rpc RefreshToken (RefreshTokenRequest) returns (RefreshTokenResponse) {}
+
+  /**
+   * Logout
+   * This method is used to invalidate tokens
+   * @param LogoutRequest - Access token to invalidate
+   * @returns grpcBoilerplate.common.GlobalResponse - Global response schema for success or error message
+   */
+  rpc Logout (LogoutRequest) returns (grpcBoilerplate.common.GlobalResponse) {}
+
+  /**
+   * Forgot Password
+   * This method is used to start password reset process
+   * @param ForgotPasswordRequest - Email or username for password reset
+   * @returns ForgotPasswordResponse - Verification token for password reset
+   */
+  rpc ForgotPassword (ForgotPasswordRequest) returns (ForgotPasswordResponse) {}
+
+  /**
+   * Forgot Password Verify
+   * This method is used to verify password reset code
+   * @param ForgotPasswordVerifyRequest - Verification token and code
+   * @returns ForgotPasswordResponse - Verification token for password reset
+   */
+  rpc ForgotPasswordVerify (ForgotPasswordVerifyRequest) returns (ForgotPasswordResponse) {}
+
+  /**
+   * Reset Password
+   * This method is used to set new password
+   * @param ResetPasswordRequest - New password information
+   * @returns grpcBoilerplate.common.GlobalResponse - Global response schema for success or error message
+   */
+  rpc ResetPassword (ResetPasswordRequest) returns (grpcBoilerplate.common.GlobalResponse) {}
+
+  /**
+   * Email Verify Start
+   * This method is used to start email verification process
+   * @param EmailVerifyStartRequest - Email to verify
+   * @returns EmailVerifyStartResponse - Verification token
+   */
+  rpc EmailVerifyStart (EmailVerifyStartRequest) returns (EmailVerifyStartResponse) {}
+
+  /**
+   * Email Verify Finish
+   * This method is used to complete email verification
+   * @param EmailVerifyFinishRequest - Verification token and code
+   * @returns grpcBoilerplate.common.GlobalResponse - Global response schema for success or error message
+   */
+  rpc EmailVerifyFinish (EmailVerifyFinishRequest) returns (grpcBoilerplate.common.GlobalResponse) {}
+}
+
+/**
+ * Register Ghost Request
+ * This message schema is used for initial registration request
+ */
+message RegisterGhostRequest {
+  /**
+   * Username
+   * Required field for user identification
+   */
+  string username = 1;
+
+  /**
+   * Email
+   * Required field for user contact
+   */
+  string email = 2;
+
+  /**
+   * Password
+   * Required field for user authentication
+   */
+  string password = 3;
+}
+
+/**
+ * Register Request
+ * This message schema is used for completing registration
+ */
+message RegisterRequest {
+  /**
+   * Register Token
+   * Required field obtained from RegisterGhost response
+   */
+  string registerToken = 1;
+
+  /**
+   * Verification Code
+   * Required field sent to user's email
+   */
+  string verificationCode = 2;
+}
+
+/**
+ * Login Request
+ * This message schema is used for user authentication
+ */
+message LoginRequest {
+  /**
+   * Email or Username
+   * Required field for user identification
+   */
+  string emailOrUsername = 1;
+
+  /**
+   * Password
+   * Required field for authentication
+   */
+  string password = 2;
+}
+
+/**
+ * Logout Request
+ * This message schema is used for user logout
+ */
+message LogoutRequest {
+  /**
+   * Access Token
+   * Required field to invalidate session
+   */
+  string accessToken = 1;
+}
+
+/**
+ * Refresh Token Request
+ * This message schema is used for token refresh
+ */
+message RefreshTokenRequest {
+  /**
+   * Refresh Token
+   * Required field to get new access token
+   */
+  string refreshToken = 1;
+}
+
+/**
+ * Forgot Password Request
+ * This message schema is used to initiate password reset
+ */
+message ForgotPasswordRequest {
+  /**
+   * Email or Username
+   * Required field for user identification
+   */
+  string emailOrUsername = 1;
+}
+
+/**
+ * Forgot Password Verify Request
+ * This message schema is used to verify password reset code
+ */
+message ForgotPasswordVerifyRequest {
+  /**
+   * Verification Token
+   * Required field from forgot password response
+   */
+  string verificationToken = 1;
+
+  /**
+   * Code
+   * Required field sent to user's email
+   */
+  string code = 2;
+}
+
+/**
+ * Reset Password Request
+ * This message schema is used to set new password
+ */
+message ResetPasswordRequest {
+  /**
+   * Verification Token
+   * Required field from forgot password verify response
+   */
+  string verificationToken = 1;
+
+  /**
+   * Password
+   * Required field for new password
+   */
+  string password = 2;
+
+  /**
+   * Confirm Password
+   * Required field to confirm new password
+   */
+  string confirmPassword = 3;
+}
+
+/**
+ * Email Verify Start Request
+ * This message schema is used to start email verification
+ */
+message EmailVerifyStartRequest {
+  /**
+   * Email
+   * Required field to verify
+   */
+  string email = 1;
+}
+
+/**
+ * Email Verify Finish Request
+ * This message schema is used to complete email verification
+ */
+message EmailVerifyFinishRequest {
+  /**
+   * Token
+   * Required field from email verify start response
+   */
+  string token = 1;
+
+  /**
+   * Code
+   * Required field sent to user's email
+   */
+  string code = 2;
+}
+
+/**
+ * Register Ghost Response
+ * This message schema is used for register ghost response
+ */
+message RegisterGhostResponse {
+  /**
+   * Metadata
+   * Response metadata
+   */
+  grpcBoilerplate.common.ResponseMetadata metadata = 1;
+
+  /**
+   * Register Token
+   * Token for completing registration
+   */
+  string registerToken = 2;
+}
+
+/**
+ * Register Response
+ * This message schema is used for register response
+ */
+message RegisterResponse {
+  /**
+   * Metadata
+   * Response metadata
+   */
+  grpcBoilerplate.common.ResponseMetadata metadata = 1;
+
+  /**
+   * Access Token
+   * Token for API access
+   */
+  string accessToken = 2;
+
+  /**
+   * Refresh Token
+   * Token for refreshing access token
+   */
+  string refreshToken = 3;
+}
+
+/**
+ * Login Response
+ * This message schema is used for login response
+ */
+message LoginResponse {
+  /**
+   * Metadata
+   * Response metadata
+   */
+  grpcBoilerplate.common.ResponseMetadata metadata = 1;
+
+  /**
+   * Access Token
+   * Token for API access
+   */
+  string accessToken = 2;
+
+  /**
+   * Refresh Token
+   * Token for refreshing access token
+   */
+  string refreshToken = 3;
+}
+
+/**
+ * Refresh Token Response
+ * This message schema is used for token refresh response
+ */
+message RefreshTokenResponse {
+  /**
+   * Metadata
+   * Response metadata
+   */
+  grpcBoilerplate.common.ResponseMetadata metadata = 1;
+
+  /**
+   * Access Token
+   * New access token
+   */
+  string accessToken = 2;
+
+  /**
+   * Refresh Token
+   * New refresh token
+   */
+  string refreshToken = 3;
+}
+
+/**
+ * Forgot Password Response
+ * This message schema is used for forgot password response
+ */
+message ForgotPasswordResponse {
+  /**
+   * Metadata
+   * Response metadata
+   */
+  grpcBoilerplate.common.ResponseMetadata metadata = 1;
+
+  /**
+   * Verification Token
+   * Token for password reset verification
+   */
+  string verificationToken = 2;
+}
+
+/**
+ * Email Verify Start Response
+ * This message schema is used for email verification start response
+ */
+message EmailVerifyStartResponse {
+  /**
+   * Metadata
+   * Response metadata
+   */
+  grpcBoilerplate.common.ResponseMetadata metadata = 1;
+
+  /**
+   * Verification Token
+   * Token for email verification
+   */
+  string verificationToken = 2;
+}
+
+/**
+ * Email Verify Finish Response
+ * This message schema is used for email verification finish response
+ */
+message EmailVerifyFinishResponse {
+  /**
+   * Metadata
+   * Response metadata
+   */
+  grpcBoilerplate.common.ResponseMetadata metadata = 1;
+}

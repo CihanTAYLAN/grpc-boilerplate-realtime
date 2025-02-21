@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <style>
+    body {
+      font-family: 'Fira Code', monospace;
+      background-color: #1a1b26;
+      color: #c0caf5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    .container {
+      padding: 2rem;
+    }
+
+    h1 {
+      color: #00ffff;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px #00ffff;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .doc-link {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background-color: rgba(0, 255, 255, 0.1);
+      color: #00ffff;
+      text-decoration: none;
+      border-radius: 8px;
+      border: 1px solid #00ffff;
+      transition: all 0.3s ease;
+    }
+
+    .doc-link:hover {
+      background-color: rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>{{title}}</h1>
+    <p>{{description}}</p>
+    <a href="/grpc-doc" class="doc-link">View API Documentation</a>
+  </div>
+</body>
+</html>

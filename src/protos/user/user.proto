@@ -1,0 +1,277 @@
+syntax = "proto3";
+
+package grpcBoilerplate.user;
+
+import "common/common.proto";
+import "google/protobuf/timestamp.proto";
+
+ /**
+   * User Service
+   * This Service is used to manage users
+   */
+service UserService {
+   /**
+   * Create User
+   * This method is used to create a new user
+   * @param CreateUserRequest - Create user request schema
+   * @returns GetUserResponse - Created user information
+   */
+  rpc CreateUser (CreateUserRequest) returns (GetUserResponse) {}
+
+  /**
+   * Get User
+   * This method is used to get a user by id
+   * @param GetUserRequest - User id
+   * @returns GetUserResponse - User information
+   */
+  rpc GetUserStream (stream GetUserRequest) returns (stream GetUserResponse) {}
+
+  /**
+   * Get Users Pagination
+   * This method is used to get users with pagination
+   * @param grpcBoilerplate.common.PaginationRequest - Pagination request schema
+   * @returns GetUsersPaginationResponse - Users with pagination
+   */
+  rpc GetUsersPagination (grpcBoilerplate.common.PaginationRequest) returns (GetUsersPaginationResponse) {}
+
+  /**
+   * Get Users Pagination Stream
+   * This method is used to get users with pagination stream
+   * @param stream grpcBoilerplate.common.PaginationRequest - Pagination request schema
+   * @returns stream GetUsersPaginationResponse - Users with pagination
+   */
+  rpc GetUsersPaginationStream (stream grpcBoilerplate.common.PaginationRequest) returns (stream GetUsersPaginationResponse) {}
+
+  /**
+   * Update User
+   * This method is used to update a user
+   * @param UpdateUserRequest - Update user request schema
+   * @returns GetUserResponse - Updated user information
+   */
+  rpc UpdateUser (UpdateUserRequest) returns (GetUserResponse) {}
+
+  /**
+   * Delete User
+   * This method is used to delete a user
+   * @param DeleteUserRequest - Delete user request schema
+   * @returns grpcBoilerplate.common.GlobalResponse - Global response schema for success or error message
+   */
+  rpc DeleteUser (DeleteUserRequest) returns (grpcBoilerplate.common.GlobalResponse) {}
+}
+
+/**
+ * User message schema
+ * This message schema is used to store user information
+ */
+message User {
+  /**
+   * User id
+   * This field is used to store user id
+   * Required field for user identification
+   */
+  string id = 1;
+
+  /**
+   * User username
+   * This field is used to store user username
+   * Required field for user identification
+   */
+  string username = 2;
+
+  /**
+   * User email
+   * This field is used to store user email
+   * Required field for user contact and authentication
+   */
+  string email = 3;
+
+  /**
+   * User password
+   * This field is used to store user password
+   * Required field for user authentication
+   * Optional field for user password
+   */
+  string password = 4;
+
+  /**
+   * User avatar
+   * This field is used to store user avatar
+   * Optional field for user avatar
+   */
+  string avatar = 5;
+
+  /**
+   * User created at
+   * This human readable created at
+   * Optional field for user created at
+   */
+  string createdAtHuman = 6;
+
+  /**
+   * User updated at
+   * This human readable updated at
+   * Optional field for user updated at
+   */
+  string updatedAtHuman = 7;
+
+  /**
+   * User created at
+   * This timestamp created at
+   * Optional field for user created at
+   */
+   google.protobuf.Timestamp createdAt = 8;
+
+   /**
+    * User updated at
+    * This timestamp updated at
+    * Optional field for user updated at
+    */
+    google.protobuf.Timestamp updatedAt = 9;
+}
+
+/**
+ * Create User Request
+ * This request schema is used to create a new user
+ */
+message CreateUserRequest {
+  /**
+   * User username
+   * This field is used to store user username
+   * Required field for user identification
+   */
+  string username = 1;
+
+  /**
+   * User email
+   * This field is used to store user email
+   * Required field for user contact and authentication
+   */
+  string email = 2;
+
+  /**
+   * User password
+   * This field is used to store user password
+   * Required field for user authentication
+   */
+  string password = 3;
+}
+
+/**
+ * Get User Request
+ * This request schema is used to get a user by id
+ */
+message GetUserRequest {
+  /**
+   * User id
+   * This field is used to store user id
+   * Required field for user identification
+   */
+  string id = 1;
+}
+
+/**
+ * Update User Request
+ * This request schema is used to update a user
+ */
+message UpdateUserRequest {
+  /**
+   * User id
+   * This field is used to store user id
+   * Required field for user identification
+   */
+  string id = 1;
+
+  /**
+   * User username
+   * This field is used to store user username
+   * Optional field if provided, it will be updated
+   */
+  string username = 2;
+
+  /**
+   * User email
+   * This field is used to store user email
+   * Optional field if provided, it will be updated
+   */
+  string email = 3;
+
+  /**
+   * User password
+   * This field is used to store user password
+   * Optional field if provided, it will be updated
+   */
+  string password = 4;
+}
+
+/**
+ * Delete User Request
+ * This request schema is used to delete a user
+ */
+message DeleteUserRequest {
+  /**
+   * User id
+   * This field is used to store user id
+   * Required field for user identification
+   */
+  string id = 1;
+}
+
+/**
+ * Get User Response
+ * This response schema is used to return user information
+ */
+message GetUserResponse {
+  /**
+   * Response metadata
+   * This field contains response metadata
+   */
+  grpcBoilerplate.common.ResponseMetadata metadata = 1;
+
+  /**
+   * User information
+   * This field contains user details
+   */
+  User user = 2;
+}
+
+/**
+ * Get Users Response
+ * This response schema is used to return multiple users
+ */
+message GetUsersResponse {
+  /**
+   * Response metadata
+   * This field contains response metadata
+   */
+  grpcBoilerplate.common.ResponseMetadata metadata = 1;
+
+  /**
+   * Users list
+   * This field contains list of users
+   */
+  repeated User users = 2;
+}
+
+/**
+ * Get Users Pagination Response
+ * This response schema is used to return paginated users
+ */
+message GetUsersPaginationResponse {
+  /**
+   * Response metadata
+   * This field contains response metadata
+   */
+  grpcBoilerplate.common.ResponseMetadata metadata = 1;
+
+  /**
+   * Pagination metadata
+   * This field contains pagination information
+   */
+  grpcBoilerplate.common.PaginationMetadata paginationMetadata = 2;
+
+  /**
+   * Users list
+   * This field contains paginated list of users
+   */
+  repeated User users = 3;
+}

@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+package grpcBoilerplate.common;
+
+message Empty {}
+
+/**
+ * Response Metadata
+ * This message schema is for response metadata
+ */
+message ResponseMetadata {
+  /**
+   * Status
+   * This field is used for status of the response
+   */
+  string status = 1;
+
+  /**
+   * Code
+   * This field is used for code of the response
+   */
+  string code = 2;
+
+  /**
+   * Message
+   * This field is used for message of the response
+   */
+  string message = 3;
+}
+
+/**
+ * Global Response
+ * This message schema is used for global response
+ */
+message GlobalResponse {
+  /**
+   * Metadata
+   * This field is used for metadata of the response
+   */
+  ResponseMetadata metadata = 1;
+}
+
+/**
+ * Pagination Request
+ * This message schema is used for pagination request
+ */
+message PaginationRequest {
+  /**
+   * Page
+   * This field is used for page of the pagination request
+   */
+  int32 page = 1;
+
+  /**
+   * Items Per Page
+   * This field is used for items per page of the pagination request
+   */
+  int32 itemsPerPage = 2;
+}
+
+/**
+ * Pagination Metadata
+ * This message schema is used for pagination response metadata
+ */
+message PaginationMetadata {
+  /**
+   * Page Items
+   * This field is used for page items of the pagination response metadata
+   */
+  int32 pageItems = 1;
+
+  /**
+   * Current Page
+   * This field is used for current page of the pagination response metadata
+   */
+  int32 currentPage = 2;
+
+  /**
+   * Total Pages
+   * This field is used for total pages of the pagination response metadata
+   */
+  int32 totalPages = 3;
+
+  /**
+   * Total Items
+   * This field is used for total items of the pagination response metadata
+   */
+  int32 totalItems = 4;
+}

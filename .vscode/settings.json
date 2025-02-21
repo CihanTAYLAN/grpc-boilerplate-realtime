@@ -1,0 +1,9 @@
+{
+    "protoc": {
+        "options": {
+            "includeDirs": [
+                "./src/protos"
+            ]
+        }
+    }
+}

@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+package grpcBoilerplate;
+
+import "auth/auth.proto";
+import "user/user.proto";

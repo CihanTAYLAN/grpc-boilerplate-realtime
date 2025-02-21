@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "assets": [
+      {
+        "include": "protos/**/*.proto",
+        "outDir": "dist/"
+      },
+      {
+        "include": "modules/mail/templates/**/*",
+        "outDir": "dist/"
+      }
+    ],
+    "watchAssets": true
+  }
+}
