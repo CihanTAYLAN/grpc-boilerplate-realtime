@@ -1,5 +1,6 @@
 <div align="center">
 <h1>gRPC Boilerplate with Real-time Capabilities</h1>
+<h4>NestJS + TypeScript + gRPC + MongoDB (replicaset) + Rest (Express) + gRPC Reflection + Swagger + SMTP</h4>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![NestJS](https://img.shields.io/badge/NestJS-v11.0.1-red.svg)](https://nestjs.com/)
