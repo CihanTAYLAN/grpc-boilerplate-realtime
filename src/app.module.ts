@@ -24,11 +24,11 @@ import * as path from 'path';
     GrpcModule,
     RouterModule.register([
       {
-        path: '/',
+        path: '',
         module: WebModule,
       },
       {
-        path: '/api',
+        path: 'api',
         module: ApiModule,
       },
     ]),
@@ -42,7 +42,7 @@ import * as path from 'path';
         maxAge: '1d',
       },
       renderPath: '/public',
-      exclude: ['/api*'],
+      exclude: ['/api/*'],
     }),
   ],
   controllers: [],

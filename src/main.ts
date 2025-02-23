@@ -25,32 +25,34 @@ async function bootstrap() {
         new ReflectionService(pkg).addToServer(server);
       },
       package: ['grpcBoilerplate.user', 'grpcBoilerplate.auth'],
-      protoPath: join(__dirname, '../src/protos/grpcBoilerplate.proto'),
+      protoPath: join(__dirname, '/protos/grpcBoilerplate.proto'),
       loader: {
         keepCase: true,
         longs: String,
         enums: String,
         defaults: true,
         oneofs: true,
-        includeDirs: [join(__dirname, '../src/protos')],
+        includeDirs: [join(__dirname, '/protos')],
       },
       url: `${configService.get('GRPC_HOST', '0.0.0.0')}:${configService.get('GRPC_PORT')}`,
     },
   });
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
-  app.setBaseViewsDir(join(__dirname, '..', 'src', 'views'));
+  app.setBaseViewsDir(join(__dirname, 'views'));
   app.setViewEngine('hbs');
 
   apiDoc(app);
 
   await app.startAllMicroservices();
-  await app.listen(configService.get('REST_PORT', 8000));
+  await app.listen(configService.get('RPC_PORT', 8000));
 
   logger.verbose(`🚀 Rest API is running on: ${await app.getUrl()}`);
   logger.verbose(
-    `🔌 gRPC server is running on: ${configService.get('GRPC_HOST', '0.0.0.0')}:${configService.get('GRPC_PORT')}`,
+    `🔌 gRPC server is running on: ${configService.get('GRPC_HOST', '0.0.0.0')}:${configService.get('GRPC_PORT', 8001)}`,
   );
+  logger.verbose(`🚀 Rest Docs: ${await app.getUrl()}/rest-doc`);
+  logger.verbose(`🔌 GRPC Docs: ${await app.getUrl()}/grpc-doc`);
 }
 bootstrap().catch((err) => {
   logger.error('Failed to start application:', err);

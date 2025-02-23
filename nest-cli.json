@@ -12,6 +12,10 @@
       {
         "include": "modules/mail/templates/**/*",
         "outDir": "dist/"
+      },
+      {
+        "include": "views/**/*",
+        "outDir": "dist/"
       }
     ],
     "watchAssets": true
